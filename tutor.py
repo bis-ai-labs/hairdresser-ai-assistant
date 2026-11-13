@@ -33,7 +33,7 @@ def answer_question(question: str, passages: list[CoursePassage]) -> str:
         for passage in passages
     )
 
-    model = init_chat_model(MODEL_NAME, temperature=0)
+    model = init_chat_model(MODEL_NAME)
     response = model.invoke(
         [
             SystemMessage(content=SYSTEM_PROMPT),
@@ -46,6 +46,6 @@ def answer_question(question: str, passages: list[CoursePassage]) -> str:
         ]
     )
 
-    if not isinstance(response, str):
+    if not isinstance(response.content, str):
         raise TypeError("The model returned a non-text response.")
     return response.content
